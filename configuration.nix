@@ -79,8 +79,6 @@
     ll = "ls -alF";
     la = "ls -A";
     l = "ls -CF";
-    ".." = "cd ..";
-    "..." = "cd ../..";
     
     # Git shortcuts
     gs = "git status";

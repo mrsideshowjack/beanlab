@@ -169,27 +169,17 @@
   };
 
   # MergerFS configuration - combine multiple drives into unified storage
-  services.mergerfs = {
-    enable = true;
-    filesystems = {
-      "/storage/pool" = {
-        branches = [
-          "/storage/disk1"
-          "/storage/disk2"
-        ];
-        options = [
-          "defaults"
-          "allow_other"
-          "use_ino" 
-          "cache.files=partial"
-          "dropcacheonclose=true"
-          "category.create=mfs"     # Most free space policy
-          "category.search=all"     # Search all drives
-          "minfreespace=10G"        # Keep 10GB free on each drive
-          "moveonenospc=true"       # Move file if drive fills up
-        ];
-      };
-    };
+  fileSystems."/storage/pool" = {
+    device = "/storage/disk1:/storage/disk2";
+    fsType = "fuse.mergerfs";
+    options = [ 
+      "cache.files=off" 
+      "category.create=mfs" 
+      "func.getattr=newest" 
+      "dropcacheonclose=false" 
+      "allow_other" 
+      "use_ino" 
+    ];
   };
 
   # Create storage directories

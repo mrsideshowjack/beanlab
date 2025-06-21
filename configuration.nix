@@ -55,11 +55,15 @@
     isNormalUser = true;
     description = "Bean";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.zsh;  # Set zsh as default shell for user
     packages = with pkgs; [];
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # Add zsh to available shells (required for user shell setting)
+  environment.shells = with pkgs; [ zsh bash ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -74,19 +78,49 @@
     openssh   # SSH client/server
   ];
 
-  # Shell aliases - available system-wide
+  # Configure zsh as the default shell with enhanced features
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+    ohMyZsh = {
+      enable = true;
+      plugins = [
+        "git"
+      ];
+      theme = "robbyrussell";
+    };
+    
+    shellAliases = {
+      ll = "ls -alF";
+      la = "ls -A";
+      l = "ls -CF";
+      gs = "git status";
+      ga = "git add";
+      gc = "git commit";
+      gp = "git push";
+      gl = "git pull";
+      rebuild = "sudo nixos-rebuild switch";
+      reboot-sys = "sudo reboot";
+      nixup = "cd ~/beanlab && git pull && sudo cp configuration.nix /etc/nixos/ && sudo nixos-rebuild switch";
+    };
+
+    histSize = 10000;
+    histFile = "$HOME/.zsh_history";
+    setOptions = [
+      "HIST_IGNORE_ALL_DUPS"
+      "HIST_SAVE_NO_DUPS"
+      "HIST_FIND_NO_DUPS"
+      "SHARE_HISTORY"
+    ];
+  };
+
+  # Also set system-wide aliases as fallback
   environment.shellAliases = {
     ll = "ls -alF";
     la = "ls -A";
     l = "ls -CF";
-    gs = "git status";
-    ga = "git add";
-    gc = "git commit";
-    gp = "git push";
-    gl = "git pull";
-    rebuild = "sudo nixos-rebuild switch";
-    reboot-sys = "sudo reboot";
-    update-config = "cd ~/beanlab && git pull && sudo cp configuration.nix /etc/nixos/ && sudo nixos-rebuild switch";
   };
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -79,19 +79,13 @@
     ll = "ls -alF";
     la = "ls -A";
     l = "ls -CF";
-    
-    # Git shortcuts
     gs = "git status";
     ga = "git add";
     gc = "git commit";
     gp = "git push";
     gl = "git pull";
-    
-    # System shortcuts
     rebuild = "sudo nixos-rebuild switch";
     reboot-sys = "sudo reboot";
-    
-    # Config update shortcut
     update-config = "cd ~/beanlab && git pull && sudo cp configuration.nix /etc/nixos/ && sudo nixos-rebuild switch";
   };
 

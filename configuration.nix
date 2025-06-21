@@ -82,6 +82,7 @@
     ntfs3g    # NTFS support for Windows drives
     rsync     # File synchronization
     rclone    # Advanced file sync/backup
+    mergerfs  # Union filesystem for combining multiple drives
   ];
 
   # Configure zsh as the default shell with enhanced features
@@ -147,8 +148,29 @@
         };
   };
 
+  # Enable Jellyfin media server
+  services.jellyfin = {
+    enable = true;
+    openFirewall = true;
+    user = "bean";  # Run as your user to avoid permission issues
+  };
+
+  # Storage mounts
+  fileSystems."/storage/data" = {
+    device = "/dev/disk/by-label/storage-1tb";
+    fsType = "ext4";
+    options = [ "defaults" "user" ];
+  };
+
+  # Create storage directories
+  systemd.tmpfiles.rules = [
+    "d /storage 0755 bean users -"
+    "d /storage/data 0755 bean users -"
+  ];
+
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  # For now firewall is disabled, but when enabled, add:
+  # networking.firewall.allowedTCPPorts = [ 22 8096 ];  # SSH and Jellyfin
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;

@@ -162,10 +162,17 @@
     options = [ "defaults" "user" ];
   };
 
+  fileSystems."/storage/disk2" = {
+    device = "/dev/disk/by-label/storage-2tb";
+    fsType = "ext4";
+    options = [ "defaults" "user" ];
+  };
+
   # Create storage directories
   systemd.tmpfiles.rules = [
     "d /storage 0755 bean users -"
     "d /storage/data 0755 bean users -"
+    "d /storage/disk2 0755 bean users -"
   ];
 
   # Open ports in the firewall.

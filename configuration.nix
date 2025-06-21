@@ -1,59 +1,68 @@
 # Basic NixOS Configuration for Home Lab
-# Edit this file to configure your system. See the manual (nixos-help)
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running 'nixos-help').
 
 { config, pkgs, ... }:
 
 {
-  imports = [
-    # Include the results of the hardware scan
-    ./hardware-configuration.nix
-  ];
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+    ];
 
-  # Bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # Bootloader.
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.useOSProber = true;
 
-  # Network configuration
-  networking.hostName = "beanlab"; # Define your hostname
-  networking.networkmanager.enable = true;  # Enable NetworkManager for easy network management
-  
-  # Enable DHCP on the primary network interface (usually eth0 for wired connections)
-  networking.useDHCP = false;
-  networking.interfaces.eth0.useDHCP = true;
-  
-  # Open ports in the firewall for SSH
-  networking.firewall.allowedTCPPorts = [ 22 ];
-  networking.firewall.enable = true;
+  networking.hostName = "beanlab"; # Define your hostname.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Set your time zone
-  time.timeZone = "Asia/Tokyo"; # Change to your timezone
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Select internationalisation properties
+  # Enable networking
+  networking.networkmanager.enable = true;
+
+  # Set your time zone.
+  time.timeZone = "Asia/Tokyo";
+
+  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Enable the OpenSSH daemon
-  services.openssh = {
-    enable = true;
-    settings = {
-      PermitRootLogin = "yes"; # Allow root login via SSH (change to "no" for better security)
-      PasswordAuthentication = true; # Allow password authentication
-    };
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "ja_JP.UTF-8";
+    LC_IDENTIFICATION = "ja_JP.UTF-8";
+    LC_MEASUREMENT = "ja_JP.UTF-8";
+    LC_MONETARY = "ja_JP.UTF-8";
+    LC_NAME = "ja_JP.UTF-8";
+    LC_NUMERIC = "ja_JP.UTF-8";
+    LC_PAPER = "ja_JP.UTF-8";
+    LC_TELEPHONE = "ja_JP.UTF-8";
+    LC_TIME = "ja_JP.UTF-8";
+  };
+
+  # Configure keymap in X11
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
   };
 
   # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.bean = {
     isNormalUser = true;
-    description = "Bean Admin User";
-    extraGroups = [ "networkmanager" "wheel" ]; # Enable 'sudo' for the user
-    packages = with pkgs; [
-      # Add user-specific packages here if needed
-    ];
+    description = "Bean";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [];
   };
 
-  # Enable sudo for wheel group
-  security.sudo.wheelNeedsPassword = false; # Remove this line for better security
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim       # Basic text editor
     wget      # Download tool
@@ -65,12 +74,59 @@
     openssh   # SSH client/server
   ];
 
-  # Enable automatic upgrades (optional, comment out if you prefer manual control)
-  # system.autoUpgrade.enable = true;
-  # system.autoUpgrade.allowReboot = true;
+  # Shell aliases - available system-wide
+  environment.shellAliases = {
+    ll = "ls -alF";
+    la = "ls -A";
+    l = "ls -CF";
+    ".." = "cd ..";
+    "..." = "cd ../..";
+    
+    # Git shortcuts
+    gs = "git status";
+    ga = "git add";
+    gc = "git commit";
+    gp = "git push";
+    gl = "git pull";
+    
+    # System shortcuts
+    rebuild = "sudo nixos-rebuild switch";
+    reboot-sys = "sudo reboot";
+    
+    # Config update shortcut
+    update-config = "cd ~/beanlab && git pull && sudo cp configuration.nix /etc/nixos/ && sudo nixos-rebuild switch";
+  };
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
+
+  # List services that you want to enable:
+
+  # Enable the OpenSSH daemon.
+  services.openssh = {
+        enable = true;
+        settings = {
+                PasswordAuthentication = true;
+        };
+  };
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
-  # on your system were taken. Don't change this after installation!
-  system.stateVersion = "23.11"; # Did you read the comment?
+  # on your system were taken. It's perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "25.05"; # Did you read the comment?
+
 } 

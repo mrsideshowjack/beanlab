@@ -8,6 +8,11 @@ This guide will help you set up a basic headless NixOS system for your home lab.
 - Network cable connected to your router/switch
 - Another computer to SSH from
 
+## Two Installation Scenarios
+
+### Scenario A: Fresh Installation (Manual Setup)
+### Scenario B: Already Installed NixOS (Skip to Section 6)
+
 ## Step-by-Step Installation
 
 ### 1. Initial NixOS Installation
@@ -148,6 +153,28 @@ This configuration includes:
 - Verify firewall: `sudo iptables -L`
 - Check if port 22 is listening: `sudo netstat -tlnp | grep :22`
 
+**SSH Host Key Warning (REMOTE HOST IDENTIFICATION HAS CHANGED)?**
+This happens when you reinstall/reconfigure the system. Fix it by removing the old host key:
+
+Windows (WSL/PowerShell):
+```bash
+# Remove the specific line (replace line number from error message)
+ssh-keygen -R 192.168.1.69
+
+# Or edit the file manually
+notepad C:\Users\YOUR_USERNAME\.ssh\known_hosts
+# Delete the line mentioned in the error message
+```
+
+Linux/Mac:
+```bash
+# Remove the old host key
+ssh-keygen -R 192.168.1.69
+
+# Or remove specific line
+sed -i '3d' ~/.ssh/known_hosts  # Replace 3 with the line number from error
+```
+
 **Need to modify configuration?**
 ```bash
 # Edit configuration
@@ -155,6 +182,68 @@ sudo nano /etc/nixos/configuration.nix
 
 # Rebuild and switch
 sudo nixos-rebuild switch
+```
+
+## 6. Already Have NixOS Installed? (Alternative Path)
+
+If you've already installed NixOS using the graphical installer and have a working system with internet access, follow these steps:
+
+### Option 1: Install Git Temporarily and Clone Repository
+
+1. **Install git temporarily:**
+   ```bash
+   # Add git to your current environment temporarily
+   nix-shell -p git
+   
+   # Now clone the repository
+   git clone https://github.com/YOUR_USERNAME/beanlab.git
+   cd beanlab
+   ```
+
+2. **Apply the configuration:**
+   ```bash
+   # Copy our configuration to the system
+   sudo cp configuration.nix /etc/nixos/
+   
+   # Rebuild the system with the new configuration
+   sudo nixos-rebuild switch
+   ```
+
+3. **Create the bean user and set password:**
+   ```bash
+   # The bean user should now exist, set a password
+   sudo passwd bean
+   ```
+
+### Option 2: Download Configuration Directly
+
+If you prefer not to use git initially:
+
+1. **Download the configuration file:**
+   ```bash
+   # Download the configuration directly
+   curl -o configuration.nix https://raw.githubusercontent.com/YOUR_USERNAME/beanlab/main/configuration.nix
+   
+   # Copy to system location
+   sudo cp configuration.nix /etc/nixos/
+   ```
+
+2. **Apply configuration:**
+   ```bash
+   sudo nixos-rebuild switch
+   sudo passwd bean
+   ```
+
+### Option 3: Manual Creation
+
+Copy the configuration manually:
+```bash
+sudo nano /etc/nixos/configuration.nix
+# Copy and paste the entire configuration from the file
+# Save and exit
+
+sudo nixos-rebuild switch
+sudo passwd bean
 ```
 
 ## Next Steps

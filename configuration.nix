@@ -156,7 +156,7 @@
   };
 
   # Storage mounts
-  fileSystems."/storage/data" = {
+  fileSystems."/storage/disk1" = {
     device = "/dev/disk/by-label/storage-1tb";
     fsType = "ext4";
     options = [ "defaults" "user" ];
@@ -168,11 +168,36 @@
     options = [ "defaults" "user" ];
   };
 
+  # MergerFS configuration - combine multiple drives into unified storage
+  services.mergerfs = {
+    enable = true;
+    filesystems = {
+      "/storage/pool" = {
+        branches = [
+          "/storage/disk1"
+          "/storage/disk2"
+        ];
+        options = [
+          "defaults"
+          "allow_other"
+          "use_ino" 
+          "cache.files=partial"
+          "dropcacheonclose=true"
+          "category.create=mfs"     # Most free space policy
+          "category.search=all"     # Search all drives
+          "minfreespace=10G"        # Keep 10GB free on each drive
+          "moveonenospc=true"       # Move file if drive fills up
+        ];
+      };
+    };
+  };
+
   # Create storage directories
   systemd.tmpfiles.rules = [
     "d /storage 0755 bean users -"
-    "d /storage/data 0755 bean users -"
+    "d /storage/disk1 0755 bean users -"
     "d /storage/disk2 0755 bean users -"
+    "d /storage/pool 0755 bean users -"
   ];
 
   # Open ports in the firewall.

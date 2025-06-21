@@ -76,6 +76,12 @@
     tree      # Directory tree viewer
     nano      # Simple text editor
     openssh   # SSH client/server
+    
+    # Storage management tools
+    parted    # Partition management
+    ntfs3g    # NTFS support for Windows drives
+    rsync     # File synchronization
+    rclone    # Advanced file sync/backup
   ];
 
   # Configure zsh as the default shell with enhanced features

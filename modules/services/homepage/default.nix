@@ -35,12 +35,24 @@ in
     bookmarks = [
       {
         "Quick Links" = [
-          "Router" = {
-            href = "http://192.168.1.1";
-          };
-          "Beanlab SSH" = {
-            href = "ssh://bean@${cfg.network.serverDomain}";
-          };
+          {
+            "Router" = [
+              {
+                abbr = "RT";
+                href = "http://192.168.1.1";
+                description = "Network Router";
+              }
+            ];
+          }
+          {
+            "Beanlab SSH" = [
+              {
+                abbr = "SSH";
+                href = "ssh://bean@${cfg.network.serverDomain}";
+                description = "SSH to Beanlab Server";
+              }
+            ];
+          }
         ];
       }
     ];

@@ -155,6 +155,13 @@
     user = "bean";  # Run as your user to avoid permission issues
   };
 
+  # Enable Immich photo management
+  services.immich = {
+    enable = true;
+    port = 2283;
+    mediaLocation = "/storage/pool/pictures";
+  };
+
   # Storage mounts
   fileSystems."/storage/disk1" = {
     device = "/dev/disk/by-label/storage-1tb";
@@ -188,11 +195,12 @@
     "d /storage/disk1 0755 bean users -"
     "d /storage/disk2 0755 bean users -"
     "d /storage/pool 0755 bean users -"
+    "d /storage/pool/pictures 0755 bean users -"
   ];
 
   # Open ports in the firewall.
   # For now firewall is disabled, but when enabled, add:
-  # networking.firewall.allowedTCPPorts = [ 22 8096 ];  # SSH and Jellyfin
+  # networking.firewall.allowedTCPPorts = [ 22 8096 2283 ];  # SSH, Jellyfin, Immich
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;

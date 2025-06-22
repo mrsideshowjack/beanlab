@@ -1,0 +1,26 @@
+# Secrets and sensitive files
+secrets/decrypted/
+*.secret
+*.key
+.env
+.env.local
+
+# Build artifacts
+result
+result-*
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.cache/ 

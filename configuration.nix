@@ -166,7 +166,7 @@
   # Enable Homepage dashboard
   services.homepage-dashboard = {
     enable = true;
-    listenPort = 80;
+    listenPort = 3000;
     openFirewall = true;
     
     allowedHosts = "localhost,127.0.0.1,192.168.1.100";

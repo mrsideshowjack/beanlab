@@ -10,7 +10,7 @@
     remotes = [
       {
         name = "origin";
-url = "https://github.com/sides/beanlab.git";
+        url = config.beanlab.system.repoURL;
         branches = {
           main.name = "main";
           testing.name = "testing-beanlab";

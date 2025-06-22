@@ -3,6 +3,15 @@
 
 {
   options.beanlab = {
+
+    system = {
+      repoURL = lib.mkOption {
+        type = lib.types.str;
+        default = "https://github.com/mrsideshowjack/beanlab.git";
+        description = "Repository URL";
+      };
+    };
+
     network = {
       serverIP = lib.mkOption {
         type = lib.types.str;

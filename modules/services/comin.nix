@@ -11,6 +11,7 @@
       {
         name = "origin";
         url = config.beanlab.system.repoURL;
+        auth.access_token_path = "/etc/comin/github-token";
         branches = {
           main.name = "main";
           testing.name = "testing-beanlab";

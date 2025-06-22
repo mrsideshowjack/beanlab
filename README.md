@@ -34,9 +34,19 @@ This repository contains the complete NixOS configuration for "beanlab" - a head
 
 ## Usage
 
-### Update Configuration
+### GitOps Deployment
+With Comin GitOps, updates are automatic! Just push changes to deploy:
+
 ```bash
-nixup  # Pull latest config from git and rebuild system
+# Make changes to configuration
+git add .
+git commit -m "Update configuration"
+git push  # Changes deploy automatically!
+```
+
+### Manual Rebuild (Emergency Use)
+```bash
+rebuild  # Rebuild system manually using flake
 ```
 
 ### Access Services

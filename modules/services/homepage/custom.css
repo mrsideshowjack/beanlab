@@ -1,0 +1,39 @@
+/* Custom CSS for Beanlab Homepage Dashboard */
+
+/* Clean, modern font stack */
+body, html {
+  font-family: 'SF Pro Display', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+/* Enhanced card styling */
+.service-card {
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+.service-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Better spacing for service groups */
+.services-group {
+  margin-bottom: 2rem !important;
+}
+
+/* Clean status indicators */
+.status-dot {
+  border-radius: 50% !important;
+  width: 8px !important;
+  height: 8px !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .service-card {
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* Future: Add more custom styling as needed */ 

@@ -14,12 +14,11 @@ in
           href = "http://${domain}:${toString cfg.ports.jellyfin}";
           description = "Media Server - Movies, TV Shows, Music";
           siteMonitor = "http://${domain}:${toString cfg.ports.jellyfin}";
-          # Future: Add Jellyfin widget here
-          # widget = {
-          #   type = "jellyfin";
-          #   url = "http://${domain}:${toString cfg.ports.jellyfin}";
-          #   key = "{{HOMEPAGE_VAR_JELLYFIN_KEY}}";
-          # };
+          widget = {
+            type = "jellyfin";
+            url = "http://${domain}:${toString cfg.ports.jellyfin}";
+            key = "{{HOMEPAGE_VAR_JELLYFIN_KEY}}";
+          };
         };
       }
       {
@@ -28,12 +27,11 @@ in
           href = "http://${domain}:${toString cfg.ports.immich}";
           description = "Photo Management & Backup";
           siteMonitor = "http://${domain}:${toString cfg.ports.immich}";
-          # Future: Add Immich widget here
-          # widget = {
-          #   type = "immich";
-          #   url = "http://${domain}:${toString cfg.ports.immich}";
-          #   key = "{{HOMEPAGE_VAR_IMMICH_KEY}}";
-          # };
+          widget = {
+            type = "immich";
+            url = "http://${domain}:${toString cfg.ports.immich}";
+            key = "{{HOMEPAGE_VAR_IMMICH_KEY}}";
+          };
         };
       }
     ];

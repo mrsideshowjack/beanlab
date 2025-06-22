@@ -6,7 +6,9 @@
   headerStyle = "clean";
   statusStyle = "dot";
   hideVersion = true;
-  
+
+  theme = "dark";
+
   layout = [
     {
       "Media Services" = {

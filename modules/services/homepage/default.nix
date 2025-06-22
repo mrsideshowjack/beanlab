@@ -13,6 +13,9 @@ in
     
     allowedHosts = "localhost:${toString cfg.ports.homepage},127.0.0.1:${toString cfg.ports.homepage},${cfg.network.serverIP}:${toString cfg.ports.homepage},${cfg.network.serverDomain}:${toString cfg.ports.homepage}";
     
+    # Load environment variables from secrets file
+    environmentFile = "/etc/beanlab/secrets/homepage.env";
+    
     # Import settings from separate file
     settings = import ./settings.nix { inherit config; };
     
@@ -32,14 +35,12 @@ in
     bookmarks = [
       {
         "Quick Links" = [
-          {
-            name = "Router";
+          "Router" = {
             href = "http://192.168.1.1";
-          }
-          {
-            name = "Beanlab SSH";
+          };
+          "Beanlab SSH" = {
             href = "ssh://bean@${cfg.network.serverDomain}";
-          }
+          };
         ];
       }
     ];

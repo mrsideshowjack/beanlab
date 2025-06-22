@@ -239,7 +239,6 @@
                 type = "resources";
                 cpu = true;
                 memory = true;
-                uptime = true;
                 disk = "/storage/pool";
                 cputemp = true;
                 tempmin = 0;

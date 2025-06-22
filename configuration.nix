@@ -5,6 +5,12 @@
 
 { config, pkgs, ... }:
 
+let
+  # Server network configuration
+  serverIP = "192.168.1.69";
+  serverDomain = "bean.lab";
+  homepagePort = 3000;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -166,10 +172,10 @@
   # Enable Homepage dashboard
   services.homepage-dashboard = {
     enable = true;
-    listenPort = 3000;
+    listenPort = homepagePort;
     openFirewall = true;
     
-    allowedHosts = "localhost:3000,127.0.0.1:3000,192.168.1.100:3000";
+    allowedHosts = "localhost:${toString homepagePort},127.0.0.1:${toString homepagePort},${serverIP}:${toString homepagePort},${serverDomain}:${toString homepagePort}";
     
     settings = {
       title = "Beanlab";
@@ -199,17 +205,17 @@
           {
             "Jellyfin" = {
               icon = "jellyfin";
-              href = "http://192.168.1.100:8096";
+              href = "http://${serverDomain}:8096";
               description = "Media Server - Movies, TV Shows, Music";
-              siteMonitor = "http://192.168.1.100:8096";
+              siteMonitor = "http://${serverDomain}:8096";
             };
           }
           {
             "Immich" = {
               icon = "immich";
-              href = "http://192.168.1.100:2283";
+              href = "http://${serverDomain}:2283";
               description = "Photo Management & Backup";
-              siteMonitor = "http://192.168.1.100:2283";
+              siteMonitor = "http://${serverDomain}:2283";
             };
           }
         ];
@@ -257,7 +263,7 @@
           }
           {
             name = "Beanlab SSH";
-            href = "ssh://bean@192.168.1.100";
+            href = "ssh://bean@${serverDomain}";
           }
         ];
       }

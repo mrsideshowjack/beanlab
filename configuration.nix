@@ -161,7 +161,7 @@
     port = 2283;
     host = "0.0.0.0";  # Listen on all interfaces instead of just localhost
     mediaLocation = "/storage/pool/pictures";
-    environment.IMMICH_CONFIG_FILE = "/home/bean/beanlab/immich-config.json";
+    # environment.IMMICH_CONFIG_FILE = "/home/bean/beanlab/immich-config.json";
   };
 
   # Storage mounts

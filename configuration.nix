@@ -161,7 +161,101 @@
     port = 2283;
     host = "0.0.0.0";  # Listen on all interfaces instead of just localhost
     mediaLocation = "/storage/pool/pictures";
-    # environment.IMMICH_CONFIG_FILE = "/home/bean/beanlab/immich-config.json";
+  };
+
+  # Enable Homepage dashboard
+  services.homepage-dashboard = {
+    enable = true;
+    listenPort = 8082;
+    openFirewall = true;
+    
+    settings = {
+      title = "Beanlab";
+      headerStyle = "clean";
+      statusStyle = "dot";
+      hideVersion = true;
+      
+      layout = [
+        {
+          "Media Services" = {
+            style = "row";
+            columns = 2;
+          };
+        }
+        {
+          "System Monitoring" = {
+            style = "row";
+            columns = 2;
+          };
+        }
+      ];
+    };
+
+    services = [
+      {
+        "Media Services" = [
+          {
+            "Jellyfin" = {
+              icon = "jellyfin";
+              href = "http://192.168.1.100:8096";
+              description = "Media Server - Movies, TV Shows, Music";
+              siteMonitor = "http://192.168.1.100:8096";
+            };
+          }
+          {
+            "Immich" = {
+              icon = "immich";
+              href = "http://192.168.1.100:2283";
+              description = "Photo Management & Backup";
+              siteMonitor = "http://192.168.1.100:2283";
+            };
+          }
+        ];
+      }
+      {
+        "System Monitoring" = [
+          {
+            "System Storage" = {
+              icon = "mdi-harddisk";
+              href = "#";
+              description = "Storage Pool: /storage/pool";
+              widget = {
+                type = "disk";
+                path = "/storage/pool";
+              };
+            };
+          }
+          {
+            "System Resources" = {
+              icon = "mdi-memory";
+              href = "#";
+              description = "CPU, Memory, Network";
+              widget = {
+                type = "resources";
+                cpu = true;
+                memory = true;
+                uptime = true;
+              };
+            };
+          }
+        ];
+      }
+    ];
+
+    bookmarks = [
+      {
+        "Quick Links" = [
+          {
+            name = "Router";
+            href = "http://192.168.1.1";
+          }
+          {
+            name = "Beanlab SSH";
+            href = "ssh://bean@192.168.1.100";
+          }
+        ];
+      }
+    ];
   };
 
   # Storage mounts

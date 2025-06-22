@@ -2,6 +2,14 @@
 { config }:
 
 [
+  # {
+  #   type = "unifi";
+  #   url = "https://192.168.1.1";
+  #   site = "UniFi Console";
+  #   username = "homepage-widget";
+  #   password = "pass";
+  #   key = "unifiapikey"; # required if using API key instead of username/password
+  # }
   # Add information widgets here as needed
   # Examples:
   # {

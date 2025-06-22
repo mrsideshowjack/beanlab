@@ -159,7 +159,9 @@
   services.immich = {
     enable = true;
     port = 2283;
+    host = "0.0.0.0";  # Listen on all interfaces instead of just localhost
     mediaLocation = "/storage/pool/pictures";
+    environment.IMMICH_CONFIG_FILE = "/home/bean/beanlab/immich-config.json";
   };
 
   # Storage mounts
@@ -195,7 +197,6 @@
     "d /storage/disk1 0755 bean users -"
     "d /storage/disk2 0755 bean users -"
     "d /storage/pool 0755 bean users -"
-    "d /storage/pool/pictures 0755 bean users -"
   ];
 
   # Open ports in the firewall.

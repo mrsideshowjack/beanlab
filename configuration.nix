@@ -166,8 +166,13 @@
   # Enable Homepage dashboard
   services.homepage-dashboard = {
     enable = true;
-    listenPort = 8082;
+    listenPort = 80;
     openFirewall = true;
+    
+    # Fix host validation error by allowing network access
+    environment = {
+      HOMEPAGE_ALLOWED_HOSTS = "localhost,127.0.0.1,192.168.1.100";
+    };
     
     settings = {
       title = "Beanlab";
@@ -235,6 +240,11 @@
                 cpu = true;
                 memory = true;
                 uptime = true;
+                disk = "/storage/pool";
+                cputemp = true;
+                tempmin = 0;
+                tempmax = 100;
+                uptime = true;
               };
             };
           }
@@ -295,7 +305,7 @@
 
   # Open ports in the firewall.
   # For now firewall is disabled, but when enabled, add:
-  # networking.firewall.allowedTCPPorts = [ 22 8096 2283 ];  # SSH, Jellyfin, Immich
+  # networking.firewall.allowedTCPPorts = [ 22 8096 2283 80 ];  # SSH, Jellyfin, Immich
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;

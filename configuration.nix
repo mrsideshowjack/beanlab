@@ -169,10 +169,7 @@
     listenPort = 80;
     openFirewall = true;
     
-    # Fix host validation error by allowing network access
-    environment = {
-      HOMEPAGE_ALLOWED_HOSTS = "localhost,127.0.0.1,192.168.1.100";
-    };
+    allowedHosts = "localhost,127.0.0.1,192.168.1.100";
     
     settings = {
       title = "Beanlab";

@@ -169,7 +169,7 @@
     listenPort = 3000;
     openFirewall = true;
     
-    allowedHosts = "localhost,127.0.0.1,192.168.1.100";
+    allowedHosts = "localhost:3000,127.0.0.1:3000,192.168.1.100:3000";
     
     settings = {
       title = "Beanlab";

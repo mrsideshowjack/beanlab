@@ -46,9 +46,6 @@
         
         chmod 600 /etc/nixos/pia-processed.ovpn
         echo "Processed .ovpn configuration"
-        
-        # Start OpenVPN with the processed config
-        ${pkgs.systemd}/bin/systemctl start openvpn-pia-vpn.service
       else
         echo "PIA .ovpn file not found at /etc/nixos/japan-aes-128-cbc-udp-dns.ovpn"
         exit 1
@@ -59,16 +56,20 @@
   # Custom OpenVPN service using the processed config
   systemd.services.openvpn-pia-vpn = {
     description = "PIA OpenVPN connection";
-    after = [ "openvpn-pia-setup.service" ];
+    after = [ "openvpn-pia-setup.service" "network-online.target" ];
+    wants = [ "network-online.target" ];
     requires = [ "openvpn-pia-setup.service" ];
     serviceConfig = {
-      Type = "notify";
+      Type = "exec";
       Restart = "always";
       RestartSec = "5";
       ExecStart = "${pkgs.openvpn}/bin/openvpn --config /etc/nixos/pia-processed.ovpn";
       CapabilityBoundingSet = "CAP_IPC_LOCK CAP_NET_ADMIN CAP_NET_RAW CAP_SETGID CAP_SETUID CAP_SYS_CHROOT CAP_DAC_OVERRIDE CAP_AUDIT_WRITE";
       LimitNPROC = 10;
       DeviceAllow = "/dev/net/tun rw";
+      # Add network namespace and device access
+      PrivateNetwork = false;
+      DevicePolicy = "strict";
     };
     wantedBy = [ "multi-user.target" ];
   };

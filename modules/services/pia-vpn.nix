@@ -3,8 +3,8 @@
 {
   services.pia-vpn = {
     enable = true;
-    certificateFile = ./ca.rsa.4096.crt;
-    environmentFile = ./pia-credentials.env;
+    certificateFile = /etc/nixos/ca.rsa.4096.crt;
+    environmentFile = /etc/nixos/pia-credentials.env;
     
     # Configure network to route all traffic through VPN
     networkConfig = ''

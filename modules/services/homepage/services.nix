@@ -38,6 +38,64 @@ in
     ];
   }
   {
+    "Network & VPN" = [
+      {
+        "PIA VPN Status" = {
+          icon = "mdi-vpn";
+          href = "#";
+          description = "Private Internet Access Japan";
+          widget = {
+            type = "customapi";
+            url = "https://ipinfo.io/json";
+            refreshInterval = 30000;
+            mappings = [
+              {
+                label = "Public IP";
+                field = "ip";
+              }
+              {
+                label = "ISP/Provider";
+                field = "org";
+              }
+              {
+                label = "VPN Status";
+                field = "org";
+                format = "{{org.includes('Datacamp Limited') || org.includes('AS212238') || hostname.includes('datapacket.com') ? '🟢 PIA Connected' : '🔴 Direct Connection'}}";
+              }
+              {
+                label = "Hostname";
+                field = "hostname";
+              }
+            ];
+          };
+        };
+      }
+      {
+        "VPN Tunnel Status" = {
+          icon = "mdi-tunnel-outline";
+          href = "#";
+          description = "Local VPN Interface Status";
+          widget = {
+            type = "glances";
+            url = "http://localhost:${glancesPort}";
+            metric = "network:tun0";
+            chart = false;
+            version = 4;
+          };
+        };
+      }
+      {
+        "OpenVPN Service" = {
+          icon = "mdi-shield-check";
+          href = "#";
+          description = "OpenVPN PIA Service Status";
+          server = "localhost";
+          container = "openvpn-pia";
+        };
+      }
+    ];
+  }
+  {
     "System Monitoring" = [
       {
         "System Resources" = {

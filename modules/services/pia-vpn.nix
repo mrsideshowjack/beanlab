@@ -33,12 +33,17 @@
 
         disable-occ
         
-        # Route all traffic through VPN
-        redirect-gateway def1
+        # Route external traffic through VPN but preserve local network
+        redirect-gateway def1 bypass-dhcp
         
-        # Use PIA DNS
+        # Preserve local DNS for local domains
+        dhcp-option DNS 192.168.1.1
         dhcp-option DNS 209.222.18.222
-        dhcp-option DNS 209.222.18.218
+        
+        # Add route exceptions for local network
+        route-nopull
+        route 0.0.0.0 0.0.0.0 vpn_gateway
+        route 192.168.1.0 255.255.255.0 net_gateway
       '';
     };
   };

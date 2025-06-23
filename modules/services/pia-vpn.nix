@@ -6,12 +6,6 @@
     pia = {
       autoStart = true;
       
-      # Read credentials from external file (more secure than embedding)
-      authUserPass = {
-        username = "";  # Will read from auth-user-pass file
-        password = "";  # Will read from auth-user-pass file
-      };
-      
       # Configuration based on .ovpn file
       config = ''
         client

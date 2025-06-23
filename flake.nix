@@ -25,6 +25,7 @@
         ./modules/system/variables.nix
         ./modules/system/users.nix  
         ./modules/system/storage.nix
+        ./modules/system/dns.nix
         
         # Service modules
         ./modules/services/jellyfin.nix

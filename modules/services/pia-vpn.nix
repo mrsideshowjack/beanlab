@@ -1,5 +1,8 @@
 { config, lib, pkgs, ... }:
 
+let
+  cfg = config.beanlab;
+in
 {
   # Simple OpenVPN configuration following Reddit comment pattern
   services.openvpn.servers = {
@@ -36,14 +39,10 @@
         # Route external traffic through VPN but preserve local network
         redirect-gateway def1 bypass-dhcp
         
-        # Preserve local DNS for local domains
-        dhcp-option DNS 192.168.1.1
-        dhcp-option DNS 209.222.18.222
-        
-        # Add route exceptions for local network
-        route-nopull
-        route 0.0.0.0 0.0.0.0 vpn_gateway
-        route 192.168.1.0 255.255.255.0 net_gateway
+        # DNS order: Router > PIA DNS > Fallback (as per user requirements)
+        dhcp-option DNS ${cfg.network.routerIP}
+        dhcp-option DNS ${cfg.dns.piaDNS}
+        dhcp-option DNS ${cfg.dns.fallbackDNS}
       '';
     };
   };

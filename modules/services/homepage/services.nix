@@ -40,57 +40,30 @@ in
   {
     "Network & VPN" = [
       {
-        "PIA VPN Status" = {
+        "PIA VPN" = {
           icon = "mdi-vpn";
           href = "#";
-          description = "Private Internet Access Japan";
+          description = "VPN Status & Connection";
           widget = {
             type = "customapi";
             url = "https://ipinfo.io/json";
             refreshInterval = 30000;
             mappings = [
               {
+                label = "Status";
+                field = "org";
+                format = "{{org.includes('Datacamp Limited') ? '🟢 Connected' : '🔴 Disconnected'}}";
+              }
+              {
+                label = "Location";
+                field = "city";
+              }
+              {
                 label = "Public IP";
                 field = "ip";
               }
-              {
-                label = "ISP/Provider";
-                field = "org";
-              }
-              {
-                label = "VPN Status";
-                field = "org";
-                format = "{{org.includes('Datacamp Limited') || org.includes('AS212238') || hostname.includes('datapacket.com') ? '🟢 PIA Connected' : '🔴 Direct Connection'}}";
-              }
-              {
-                label = "Hostname";
-                field = "hostname";
-              }
             ];
           };
-        };
-      }
-      {
-        "VPN Tunnel Status" = {
-          icon = "mdi-tunnel-outline";
-          href = "#";
-          description = "Local VPN Interface Status";
-          widget = {
-            type = "glances";
-            url = "http://localhost:${glancesPort}";
-            metric = "network:tun0";
-            chart = false;
-            version = 4;
-          };
-        };
-      }
-      {
-        "OpenVPN Service" = {
-          icon = "mdi-shield-check";
-          href = "#";
-          description = "OpenVPN PIA Service Status";
-          server = "localhost";
-          container = "openvpn-pia";
         };
       }
     ];
@@ -103,18 +76,11 @@ in
           href = "#";
           description = "CPU, Memory, Disk & Network";
           widget = {
-            type = "resources";
-            cpu = true;
-            memory = true;
-            disk = "/storage/pool";
-            cputemp = true;
-            tempmin = 0;
-            tempmax = 100;
-            uptime = true;
-            units = "metric";
-            refresh = 3000;
-            diskUnits = "bytes";
-            network = true;
+            type = "glances";
+            url = "http://localhost:${glancesPort}";
+            metric = "info";
+            chart = false;
+            version = 4;
           };
         };
       }

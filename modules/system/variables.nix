@@ -24,6 +24,26 @@
         default = "bean.lab";
         description = "Server domain name";
       };
+      
+      routerIP = lib.mkOption {
+        type = lib.types.str;
+        default = "192.168.1.1";
+        description = "Router IP address";
+      };
+    };
+
+    dns = {
+      piaDNS = lib.mkOption {
+        type = lib.types.str;
+        default = "10.0.0.242";
+        description = "PIA DNS server (basic DNS)";
+      };
+      
+      fallbackDNS = lib.mkOption {
+        type = lib.types.str;
+        default = "1.1.1.1";
+        description = "Fallback DNS server (Cloudflare)";
+      };
     };
 
     ports = {

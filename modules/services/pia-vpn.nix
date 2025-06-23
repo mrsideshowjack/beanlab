@@ -1,61 +1,44 @@
 { config, lib, pkgs, ... }:
 
 {
-  services.pia-vpn = {
-    enable = true;
-    certificateFile = /etc/nixos/ca.rsa.4096.crt;
-    environmentFile = /etc/nixos/pia-credentials.env;
-    
-    # Configure network to route all traffic through VPN
-    networkConfig = ''
-      [Match]
-      Name = wg0
-
-      [Network]
-      Description = WireGuard PIA network interface
-      Address = ''${peerip}/32
-
-      [RoutingPolicyRule]
-      To = ''${wg_ip}/32
-      Priority = 1000
-
-      # Port forwarding service exception
-      [RoutingPolicyRule]
-      To = ''${meta_ip}/32
-      Priority = 1000
-
-      # Route all other traffic through VPN
-      [RoutingPolicyRule]
-      To = 0.0.0.0/0
-      Priority = 2000
-      Table = 42
-
-      [Route]
-      Destination = 0.0.0.0/0
-      Table = 42
-    '';
-    
-    postUp = ''
-      echo "VPN is up and routing all traffic through wg0"
-    '';
-    
-    # Optional: Enable port forwarding if needed for services
-    portForward = {
-      enable = false; # Set to true if you need port forwarding for services like Transmission
-      script = ''
-        echo "Forwarded port: $port"
-        # Add your port forwarding script here if needed
-        # Example for transmission:
-        # ${pkgs.transmission_4}/bin/transmission-remote --authenv --port $port || true
+  # Use native NixOS OpenVPN with PIA .ovpn file
+  services.openvpn.servers = {
+    pia = {
+      autoStart = true;
+      
+      # Use the .ovpn file directly
+      config = builtins.readFile "/etc/nixos/japan-aes-128-cbc-udp-dns.ovpn" + ''
+        
+        # Override auth-user-pass to use our auth file
+        auth-user-pass /etc/nixos/auth.txt
       '';
     };
   };
 
-  # Ensure services that need VPN wait for it to be up
-  # systemd.services.jellyfin.after = [ "pia-vpn.service" ];
-  # systemd.services.immich-server.after = [ "pia-vpn.service" ];
-  
-  # Optional: Bind services to VPN (uncomment if you want services to stop when VPN goes down)
-  # systemd.services.jellyfin.bindsTo = [ "pia-vpn.service" ];
-  # systemd.services.immich-server.bindsTo = [ "pia-vpn.service" ];
+  # Create auth file from existing credentials
+  systemd.services.openvpn-pia-setup = {
+    description = "Setup PIA OpenVPN auth file";
+    wantedBy = [ "openvpn-pia.service" ];
+    before = [ "openvpn-pia.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      # Extract credentials from existing env file and create auth file
+      if [ -f /etc/nixos/pia-credentials.env ]; then
+        source /etc/nixos/pia-credentials.env
+        echo "$PIA_USER" > /etc/nixos/auth.txt
+        echo "$PIA_PASS" >> /etc/nixos/auth.txt
+        chmod 600 /etc/nixos/auth.txt
+      else
+        echo "PIA credentials file not found!"
+        exit 1
+      fi
+    '';
+  };
+
+  # Ensure services wait for VPN
+  # systemd.services.jellyfin.after = [ "openvpn-pia.service" ];
+  # systemd.services.immich-server.after = [ "openvpn-pia.service" ];
 } 

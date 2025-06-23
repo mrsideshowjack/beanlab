@@ -7,21 +7,16 @@
       url = "github:nlewo/comin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-pia-vpn = {
-      url = "github:rcambrj/nix-pia-vpn";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
   };
 
-  outputs = { self, nixpkgs, comin, nix-pia-vpn }: {
+  outputs = { self, nixpkgs, comin }: {
     nixosConfigurations.beanlab = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         # Include Comin module
         comin.nixosModules.comin
         
-        # Include PIA VPN module
-        nix-pia-vpn.nixosModules.default
         
         # Hardware configuration
         ./hardware-configuration.nix

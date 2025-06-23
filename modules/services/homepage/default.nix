@@ -5,6 +5,9 @@ let
   cfg = config.beanlab;
 in
 {
+  # Enable glances for system monitoring
+  services.glances.enable = true;
+  
   # Enable Homepage dashboard
   services.homepage-dashboard = {
     enable = true;

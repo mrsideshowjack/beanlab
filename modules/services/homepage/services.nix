@@ -4,6 +4,7 @@
 let
   cfg = config.beanlab;
   domain = cfg.network.serverDomain;
+  glancesPort = toString config.services.glances.port;
 in
 [
   {
@@ -39,21 +40,10 @@ in
   {
     "System Monitoring" = [
       {
-        "System Storage" = {
-          icon = "mdi-harddisk";
-          href = "#";
-          description = "Storage Pool: /storage/pool";
-          widget = {
-            type = "disk";
-            path = "/storage/pool";
-          };
-        };
-      }
-      {
         "System Resources" = {
           icon = "mdi-memory";
           href = "#";
-          description = "CPU, Memory, Network";
+          description = "CPU, Memory, Disk & Network";
           widget = {
             type = "resources";
             cpu = true;
@@ -63,6 +53,52 @@ in
             tempmin = 0;
             tempmax = 100;
             uptime = true;
+            units = "metric";
+            refresh = 3000;
+            diskUnits = "bytes";
+            network = true;
+          };
+        };
+      }
+      {
+        "System Info" = {
+          icon = "mdi-information-outline";
+          href = "#";
+          description = "Host Information";
+          widget = {
+            type = "glances";
+            url = "http://localhost:${glancesPort}";
+            metric = "info";
+            chart = false;
+            version = 4;
+          };
+        };
+      }
+      {
+        "CPU Temperature" = {
+          icon = "mdi-thermometer";
+          href = "#";
+          description = "CPU Thermal Monitoring";
+          widget = {
+            type = "glances";
+            url = "http://localhost:${glancesPort}";
+            metric = "sensor:Package id 0";
+            chart = false;
+            version = 4;
+          };
+        };
+      }
+      {
+        "Active Processes" = {
+          icon = "mdi-cog";
+          href = "#";
+          description = "Running Processes";
+          widget = {
+            type = "glances";
+            url = "http://localhost:${glancesPort}";
+            metric = "process";
+            chart = false;
+            version = 4;
           };
         };
       }

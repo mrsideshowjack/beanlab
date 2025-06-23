@@ -19,7 +19,7 @@
     {
       "System Monitoring" = {
         style = "row";
-        columns = 2;
+        columns = 4;
       };
     }
   ];

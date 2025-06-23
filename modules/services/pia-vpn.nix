@@ -28,8 +28,8 @@
         reneg-sec 0
         
         # Use extracted certificate files
-        crl-verify /etc/nixos/crl.pem
         ca /etc/nixos/ca.pem
+        # crl-verify /etc/nixos/crl.pem  # Disabled due to ASN.1 parsing errors
 
         disable-occ
         

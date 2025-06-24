@@ -9,13 +9,13 @@
     openFirewall = true;
     user = "bean";
     group = "users";
-    dataDir = "/storage/pool/media/torrent";
+    dataDir = "/storage/pool/torrents/.deluge";
     
     # Deluge daemon configuration
     config = {
-      download_location = "/storage/pool/media/torrent/downloads";
-      torrentfiles_location = "/storage/pool/media/torrent/torrent-files";
-      move_completed_path = "/storage/pool/media/torrent/completed";
+      download_location = "/storage/pool/torrents/downloads";
+      torrentfiles_location = "/storage/pool/torrents/torrent-files";
+      move_completed_path = "/storage/pool/torrents/completed";
       copy_torrent_file = true;
       del_copy_torrent_file = false;
       allow_remote = true;
@@ -50,12 +50,11 @@
     openFirewall = true;
   };
 
-  # Create necessary directories
+  # Create necessary directories (using existing torrents directory)
   systemd.tmpfiles.rules = [
-    "d /storage/pool/media 0755 bean users - -"
-    "d /storage/pool/media/torrent 0755 bean users - -"
-    "d /storage/pool/media/torrent/downloads 0755 bean users - -"
-    "d /storage/pool/media/torrent/completed 0755 bean users - -"
-    "d /storage/pool/media/torrent/torrent-files 0755 bean users - -"
+    "d /storage/pool/torrents/.deluge 0755 bean users - -"
+    "d /storage/pool/torrents/downloads 0755 bean users - -"
+    "d /storage/pool/torrents/completed 0755 bean users - -"
+    "d /storage/pool/torrents/torrent-files 0755 bean users - -"
   ];
 } 

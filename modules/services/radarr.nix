@@ -8,13 +8,11 @@
     openFirewall = true;
     user = "bean";
     group = "users";
-    dataDir = "/storage/pool/media/.radarr";
+    dataDir = "/storage/pool/Video/.radarr";
   };
 
-  # Create necessary directories
+  # Create necessary directories (using existing Video/film structure)
   systemd.tmpfiles.rules = [
-    "d /storage/pool/media 0755 bean users - -"
-    "d /storage/pool/media/movies 0755 bean users - -" 
-    "d /storage/pool/media/.radarr 0755 bean users - -"
+    "d /storage/pool/Video/.radarr 0755 bean users - -"
   ];
 } 

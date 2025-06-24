@@ -20,10 +20,10 @@
     device = "/storage/disk1:/storage/disk2";
     fsType = "fuse.mergerfs";
     options = [ 
-      "cache.files=off" 
+      "cache.files=partial"     # Enable caching to fix mmap issues with torrent clients
       "category.create=mfs" 
       "func.getattr=newest" 
-      "dropcacheonclose=false" 
+      "dropcacheonclose=true"   # Enable cache cleanup for non-direct_io mode
       "allow_other" 
       "use_ino" 
     ];

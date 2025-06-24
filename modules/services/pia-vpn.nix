@@ -73,4 +73,7 @@ in
   # Ensure services wait for VPN
   systemd.services.jellyfin.after = [ "openvpn-pia.service" ];
   systemd.services.immich-server.after = [ "openvpn-pia.service" ];
+  systemd.services.deluge.after = [ "openvpn-pia.service" ];
+  systemd.services.sonarr.after = [ "openvpn-pia.service" ];
+  systemd.services.radarr.after = [ "openvpn-pia.service" ];
 } 

@@ -32,8 +32,6 @@
       max_active_seeding = 5;
       max_active_limit = 10;
       enabled_plugins = [ "Label" ];
-      # Bind to VPN interface for all traffic
-      outgoing_interface = "tun0";
     };
     
     # Auth file for remote access

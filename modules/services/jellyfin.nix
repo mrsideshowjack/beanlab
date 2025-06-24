@@ -7,6 +7,6 @@
     enable = true;
     openFirewall = true;
     user = "bean";
-    group = "multimedia";  # Use multimedia group for shared access
+    group = "users";  # Use users group to match existing setup
   };
 } 

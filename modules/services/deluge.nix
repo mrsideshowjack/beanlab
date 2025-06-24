@@ -2,19 +2,13 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Create multimedia group for media services
-  users.groups.multimedia = { };
-  
-  # Add bean user to multimedia group
-  users.users.bean.extraGroups = [ "multimedia" ];
-
   # Enable Deluge BitTorrent client
   services.deluge = {
     enable = true;
     declarative = true;
     openFirewall = true;
     user = "bean";
-    group = "multimedia";
+    group = "users";
     dataDir = "/storage/pool/media/torrent";
     
     # Deluge daemon configuration
@@ -58,10 +52,10 @@
 
   # Create necessary directories
   systemd.tmpfiles.rules = [
-    "d /storage/pool/media 0770 - multimedia - -"
-    "d /storage/pool/media/torrent 0770 bean multimedia - -"
-    "d /storage/pool/media/torrent/downloads 0770 bean multimedia - -"
-    "d /storage/pool/media/torrent/completed 0770 bean multimedia - -"
-    "d /storage/pool/media/torrent/torrent-files 0770 bean multimedia - -"
+    "d /storage/pool/media 0755 bean users - -"
+    "d /storage/pool/media/torrent 0755 bean users - -"
+    "d /storage/pool/media/torrent/downloads 0755 bean users - -"
+    "d /storage/pool/media/torrent/completed 0755 bean users - -"
+    "d /storage/pool/media/torrent/torrent-files 0755 bean users - -"
   ];
 } 

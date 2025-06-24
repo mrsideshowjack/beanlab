@@ -8,11 +8,6 @@
     openFirewall = true;
     user = "bean";
     group = "users";
-    dataDir = "/storage/pool/Video/.sonarr";
+    dataDir = "/var/lib/sonarr";
   };
-
-  # Create necessary directories (using existing Video/TV structure)
-  systemd.tmpfiles.rules = [
-    "d /storage/pool/Video/.sonarr 0755 bean users -"
-  ];
 } 

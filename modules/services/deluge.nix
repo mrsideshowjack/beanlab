@@ -9,7 +9,7 @@
     openFirewall = true;
     user = "bean";
     group = "users";
-    dataDir = "/storage/pool/torrents/.deluge";
+    dataDir = "/var/lib/deluge";
     
     # Deluge daemon configuration
     config = {
@@ -50,9 +50,8 @@
     openFirewall = true;
   };
 
-  # Create necessary directories (using existing torrents directory)
+  # Create necessary directories (using existing torrents directory for downloads only)
   systemd.tmpfiles.rules = [
-    "d /storage/pool/torrents/.deluge 0755 bean users - -"
     "d /storage/pool/torrents/downloads 0755 bean users - -"
     "d /storage/pool/torrents/completed 0755 bean users - -"
     "d /storage/pool/torrents/torrent-files 0755 bean users - -"

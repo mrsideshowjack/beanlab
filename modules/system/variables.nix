@@ -64,6 +64,24 @@
         default = 2283;
         description = "Immich photo management port";
       };
+      
+      deluge = lib.mkOption {
+        type = lib.types.int;
+        default = 8112;
+        description = "Deluge web UI port";
+      };
+      
+      sonarr = lib.mkOption {
+        type = lib.types.int;
+        default = 8989;
+        description = "Sonarr TV management port";
+      };
+      
+      radarr = lib.mkOption {
+        type = lib.types.int;
+        default = 7878;
+        description = "Radarr movie management port";
+      };
     };
   };
 } 

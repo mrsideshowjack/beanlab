@@ -36,6 +36,11 @@
         # PIA VPN service module
         ./modules/services/pia-vpn.nix
         
+        # Arr stack modules
+        ./modules/services/deluge.nix
+        ./modules/services/sonarr.nix
+        ./modules/services/radarr.nix
+        
         # Main system configuration
         {
           # Basic system configuration

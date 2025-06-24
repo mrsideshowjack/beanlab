@@ -28,11 +28,11 @@ in
           href = "http://${domain}:${toString cfg.ports.immich}";
           description = "Photo Management & Backup";
           siteMonitor = "http://${domain}:${toString cfg.ports.immich}";
-          widget = {
-            type = "immich";
-            url = "http://${domain}:${toString cfg.ports.immich}";
-            key = "{{HOMEPAGE_VAR_IMMICH_KEY}}";
-          };
+          # widget = {
+          #   type = "immich";
+          #   url = "http://${domain}:${toString cfg.ports.immich}";
+          #   key = "{{HOMEPAGE_VAR_IMMICH_KEY}}";
+          # };
         };
       }
     ];

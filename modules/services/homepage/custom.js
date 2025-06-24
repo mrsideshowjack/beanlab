@@ -7,4 +7,4 @@
 // - Service status monitoring
 // - Dynamic content updates
 
-console.log('Beanlab Homepage Dashboard loaded successfully!'); 
+//console.log('Beanlab Homepage Dashboard loaded successfully!'); 

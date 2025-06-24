@@ -36,10 +36,15 @@ in
 
         disable-occ
         
-        # Route external traffic through VPN but preserve local network
+        # Route traffic through VPN but preserve local network access
         redirect-gateway def1 bypass-dhcp
+        route-nopull  # Don't accept all routes from server
         
-        # DNS order: Router > PIA DNS > Fallback (as per user requirements)
+        # Preserve local network routes
+        route 192.168.1.0 255.255.255.0 net_gateway
+        route 192.168.0.0 255.255.0.0 net_gateway
+        
+        # DNS: Keep local DNS primary for .lab domains
         dhcp-option DNS ${cfg.network.routerIP}
         dhcp-option DNS ${cfg.dns.piaDNS}
         dhcp-option DNS ${cfg.dns.fallbackDNS}
@@ -70,10 +75,10 @@ in
     '';
   };
 
-  # Ensure services wait for VPN
-  systemd.services.jellyfin.after = [ "openvpn-pia.service" ];
-  systemd.services.immich-server.after = [ "openvpn-pia.service" ];
-  systemd.services.deluge.after = [ "openvpn-pia.service" ];
+  # Ensure services wait for VPN (only torrent-related services need VPN)
+  # Note: Only route torrent traffic through VPN, keep media servers local
+  systemd.services.deluged.after = [ "openvpn-pia.service" ];
+  systemd.services.delugeweb.after = [ "openvpn-pia.service" ];
   systemd.services.sonarr.after = [ "openvpn-pia.service" ];
   systemd.services.radarr.after = [ "openvpn-pia.service" ];
 } 

@@ -1,21 +1,27 @@
 # Deluge BitTorrent client configuration
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
+  # Create multimedia group for media services
+  users.groups.multimedia = { };
+  
+  # Add bean user to multimedia group
+  users.users.bean.extraGroups = [ "multimedia" ];
+
   # Enable Deluge BitTorrent client
   services.deluge = {
     enable = true;
     declarative = true;
     openFirewall = true;
     user = "bean";
-    group = "users";
-    dataDir = "/storage/pool/torrents/.deluge";
+    group = "multimedia";
+    dataDir = "/storage/pool/media/torrent";
     
     # Deluge daemon configuration
     config = {
-      download_location = "/storage/pool/torrents/downloads";
-      torrentfiles_location = "/storage/pool/torrents/torrent-files";
-      move_completed_path = "/storage/pool/torrents/completed";
+      download_location = "/storage/pool/media/torrent/downloads";
+      torrentfiles_location = "/storage/pool/media/torrent/torrent-files";
+      move_completed_path = "/storage/pool/media/torrent/completed";
       copy_torrent_file = true;
       del_copy_torrent_file = false;
       allow_remote = true;
@@ -31,10 +37,14 @@
       max_active_downloading = 8;
       max_active_seeding = 5;
       max_active_limit = 10;
+      enabled_plugins = [ "Label" ];
+      # Bind to VPN interface for all traffic
+      outgoing_interface = "tun0";
     };
     
     # Auth file for remote access
     authFile = pkgs.writeText "deluge-auth" ''
+      localclient::10
       bean:beanlab:10
     '';
   };
@@ -48,10 +58,10 @@
 
   # Create necessary directories
   systemd.tmpfiles.rules = [
-    "d /storage/pool/torrents 0755 bean users -"
-    "d /storage/pool/torrents/downloads 0755 bean users -"
-    "d /storage/pool/torrents/completed 0755 bean users -"
-    "d /storage/pool/torrents/torrent-files 0755 bean users -"
-    "d /storage/pool/torrents/.deluge 0755 bean users -"
+    "d /storage/pool/media 0770 - multimedia - -"
+    "d /storage/pool/media/torrent 0770 bean multimedia - -"
+    "d /storage/pool/media/torrent/downloads 0770 bean multimedia - -"
+    "d /storage/pool/media/torrent/completed 0770 bean multimedia - -"
+    "d /storage/pool/media/torrent/torrent-files 0770 bean multimedia - -"
   ];
 } 

@@ -7,14 +7,13 @@
     enable = true;
     openFirewall = true;
     user = "bean";
-    group = "users";
+    group = "multimedia";
     dataDir = "/storage/pool/media/.sonarr";
     
     # Sonarr configuration
     settings = {
       server = {
         port = config.beanlab.ports.sonarr;
-        bindAddress = "0.0.0.0";
       };
     };
   };

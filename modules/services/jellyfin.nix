@@ -6,6 +6,7 @@
   services.jellyfin = {
     enable = true;
     openFirewall = true;
-    user = "bean";  # Run as your user to avoid permission issues
+    user = "bean";
+    group = "multimedia";  # Use multimedia group for shared access
   };
 } 

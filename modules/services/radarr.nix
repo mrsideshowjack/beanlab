@@ -7,14 +7,13 @@
     enable = true;
     openFirewall = true;
     user = "bean";
-    group = "users";
+    group = "multimedia";
     dataDir = "/storage/pool/media/.radarr";
     
     # Radarr configuration
     settings = {
       server = {
         port = config.beanlab.ports.radarr;
-        bindAddress = "0.0.0.0";
       };
     };
   };

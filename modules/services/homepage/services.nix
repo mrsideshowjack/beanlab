@@ -47,7 +47,7 @@ in
           # };
         };
       }
-    ]
+    ];
   }
   {
     "Media Services" = [

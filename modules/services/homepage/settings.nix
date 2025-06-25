@@ -8,18 +8,25 @@
   hideVersion = true;
 
   theme = "dark";
+  color = "slate";
 
   layout = [
     {
+      "Arr" = {
+        style = "column";
+        rows = 4;
+      }
+    }
+    {
       "Media Services" = {
-        style = "row";
-        columns = 2;
+        style = "column";
+        rows = 4;
       };
     }
     {
       "System Monitoring" = {
-        style = "row";
-        columns = 4;
+        style = "column";
+        rows = 4;
       };
     }
   ];

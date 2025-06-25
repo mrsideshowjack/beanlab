@@ -8,6 +8,48 @@ let
 in
 [
   {
+    "Arr" = [
+      {
+        "Deluge" = {
+          icon = "deluge";
+          href = "http://${domain}:${toString cfg.ports.deluge}";
+          description = "Downloader";
+          siteMonitor = "http://${domain}:${toString cfg.ports.deluge}";
+          widget = {
+            type = "deluge";
+            url = "http://${domain}:${toString cfg.ports.deluge}";
+            password = "{{HOMEPAGE_VAR_DELUGE_PASSWORD}}";
+            enableLeechProgress = true;
+          };
+        };
+        "Sonarr" = {
+          icon = "sonarr";
+          href = "http://${domain}:${toString cfg.ports.sonarr}";
+          description = "TV Show Manager";
+          siteMonitor = "http://${domain}:${toString cfg.ports.sonarr}";
+          widget = {
+            type = "sonarr";
+            url = "http://${domain}:${toString cfg.ports.sonarr}";
+            key = "{{HOMEPAGE_VAR_SONARR_KEY}}";
+            enableQueue = true;
+          };
+        };
+        "Radarr" = {
+          icon = "radarr";
+          href = "http://${domain}:${toString cfg.ports.radarr}";
+          description = "Movie Manager";
+          siteMonitor = "http://${domain}:${toString cfg.ports.radarr}";
+          widget = {
+            type = "radarr";
+            url = "http://${domain}:${toString cfg.ports.radarr}";
+            key = "{{HOMEPAGE_VAR_RADARR_KEY}}";
+            enableQueue = true;
+          };
+        };
+      }
+    ]
+  }
+  {
     "Media Services" = [
       {
         "Jellyfin" = {

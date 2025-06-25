@@ -77,6 +77,19 @@ in
           # };
         };
       }
+      {
+        "Paperless-ngx" = {
+          icon = "paperless-ngx";
+          href = "http://${domain}:${toString cfg.ports.paperless}";
+          description = "Document Management & OCR";
+          siteMonitor = "http://${domain}:${toString cfg.ports.paperless}";
+          # widget = {
+          #   type = "paperlessngx";
+          #   url = "http://${domain}:${toString cfg.ports.paperless}";
+          #   key = "{{HOMEPAGE_VAR_PAPERLESS_KEY}}";
+          # };
+        };
+      }
     ];
   }
   {

@@ -1,0 +1,81 @@
+# Paperless-ngx document management system
+{ config, pkgs, ... }:
+
+let
+  cfg = config.beanlab;
+in
+{
+  # Enable paperless-ngx service
+  services.paperless = {
+    enable = true;
+    
+    # Web interface configuration
+    port = cfg.ports.paperless;
+    address = "0.0.0.0";  # Allow access from any interface
+    
+    # Data storage configuration - use the storage pool
+    dataDir = "/storage/pool/documents/paperless-data";
+    mediaDir = "/storage/pool/documents/paperless-media";
+    
+    # OCR configuration for English and Japanese
+    settings = {
+      PAPERLESS_OCR_LANGUAGE = "eng+jpn";  # English and Japanese OCR
+      PAPERLESS_OCR_LANGUAGES = "eng jpn";
+      
+      # Performance and reliability settings
+      PAPERLESS_TASK_WORKERS = 2;
+      PAPERLESS_THREADS_PER_WORKER = 1;
+      
+      # Security settings
+      PAPERLESS_ALLOWED_HOSTS = cfg.network.serverDomain + ",localhost,127.0.0.1," + cfg.network.serverIP;
+      PAPERLESS_CORS_ALLOWED_HOSTS = "http://" + cfg.network.serverDomain + ":" + toString cfg.ports.paperless;
+      
+      # Date formats
+      PAPERLESS_DATE_ORDER = "YMD";
+      
+      # Filename handling
+      PAPERLESS_FILENAME_FORMAT = "{created_year}/{correspondent}/{title}";
+      
+      # Consumer settings
+      PAPERLESS_CONSUMER_POLLING = 5;  # Check for new files every 5 seconds
+      PAPERLESS_CONSUMER_DELETE_DUPLICATES = true;
+      
+      # Thumbnail settings
+      PAPERLESS_THUMBNAIL_FONT_NAME = "/run/current-system/sw/share/fonts/truetype/dejavu/DejaVuSans.ttf";
+    };
+    
+    # Additional packages for better OCR support
+    extraConfig = {
+      # Install additional language packs for Tesseract
+      services.paperless.package = pkgs.paperless-ngx.override {
+        tesseract5 = pkgs.tesseract5.override {
+          enableLanguages = [ "eng" "jpn" ];
+        };
+      };
+    };
+  };
+
+  # Create necessary directories with proper permissions
+  systemd.tmpfiles.rules = [
+    "d /storage/pool/documents 0755 paperless paperless -"
+    "d /storage/pool/documents/paperless-data 0755 paperless paperless -"
+    "d /storage/pool/documents/paperless-media 0755 paperless paperless -"
+    "d /storage/pool/documents/consume 0755 paperless paperless -"
+    "d /storage/pool/documents/export 0755 paperless paperless -"
+  ];
+
+  # Install additional packages for document processing
+  environment.systemPackages = with pkgs; [
+    tesseract5                           # OCR engine
+    imagemagick                          # Image processing
+    ghostscript                          # PDF processing
+    qpdf                                 # PDF manipulation
+    poppler_utils                        # PDF utilities (pdfinfo, pdftotext, etc.)
+    unpaper                              # Document cleaning
+    libxml2                              # XML processing
+    libxslt                              # XSLT processing
+  ];
+
+  # Firewall configuration to allow access to paperless
+  # networking.firewall.allowedTCPPorts = [ cfg.ports.paperless ];
+} 

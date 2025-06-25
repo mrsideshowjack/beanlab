@@ -82,6 +82,12 @@
         default = 7878;
         description = "Radarr movie management port";
       };
+      
+      paperless = lib.mkOption {
+        type = lib.types.int;
+        default = 8010;
+        description = "Paperless-ngx document management port";
+      };
     };
   };
 } 

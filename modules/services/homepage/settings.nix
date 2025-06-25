@@ -14,7 +14,7 @@
     {
       "Arr" = {
         style = "column";
-      }
+      };
     }
     {
       "Media Services" = {

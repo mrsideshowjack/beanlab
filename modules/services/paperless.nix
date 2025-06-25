@@ -20,7 +20,6 @@ in
     # OCR configuration for English and Japanese
     settings = {
       PAPERLESS_OCR_LANGUAGE = "eng+jpn";  # English and Japanese OCR
-      PAPERLESS_OCR_LANGUAGES = "eng jpn";
       
       # Performance and reliability settings
       PAPERLESS_TASK_WORKERS = 2;
@@ -42,16 +41,6 @@ in
       
       # Thumbnail settings
       PAPERLESS_THUMBNAIL_FONT_NAME = "/run/current-system/sw/share/fonts/truetype/dejavu/DejaVuSans.ttf";
-    };
-    
-    # Additional packages for better OCR support
-    extraConfig = {
-      # Install additional language packs for Tesseract
-      services.paperless.package = pkgs.paperless-ngx.override {
-        tesseract5 = pkgs.tesseract5.override {
-          enableLanguages = [ "eng" "jpn" ];
-        };
-      };
     };
   };
 

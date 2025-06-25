@@ -30,7 +30,7 @@
         # Service modules
         ./modules/services/jellyfin.nix
         ./modules/services/immich.nix
-        ./modules/services/paperless.nix
+        # ./modules/services/paperless.nix
         ./modules/services/homepage
         ./modules/services/comin.nix
         

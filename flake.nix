@@ -41,7 +41,7 @@
         ./modules/services/deluge.nix
         ./modules/services/sonarr.nix
         ./modules/services/radarr.nix
-        
+        ./modules/services/bazarr.nix
         # Main system configuration
         {
           # Basic system configuration

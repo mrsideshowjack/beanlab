@@ -16,18 +16,24 @@ in
           description = "Downloader";
           siteMonitor = "http://${domain}:${toString cfg.ports.deluge}";
         };
+      }
+      {
         "Sonarr" = {
           icon = "sonarr";
           href = "http://${domain}:${toString cfg.ports.sonarr}";
           description = "TV Show Manager";
           siteMonitor = "http://${domain}:${toString cfg.ports.sonarr}";
         };
+      }
+      {
         "Radarr" = {
           icon = "radarr";
           href = "http://${domain}:${toString cfg.ports.radarr}";
           description = "Movie Manager";
           siteMonitor = "http://${domain}:${toString cfg.ports.radarr}";
         };
+      }
+      {
         "Bazarr" = {
           icon = "bazarr";
           href = "http://${domain}:${toString cfg.ports.bazarr}";

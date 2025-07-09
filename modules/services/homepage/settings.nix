@@ -24,6 +24,7 @@
     {
       "System Monitoring" = {
         style = "row";
+        columns = 4;
       };
     }
   ];

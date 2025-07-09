@@ -5,9 +5,19 @@ let
   cfg = config.beanlab;
 in
 {
+  # Enable Redis for Paperless
+  services.redis.servers.paperless = {
+    enable = true;
+    port = 6379;
+    bind = "127.0.0.1";
+  };
+
   # Enable paperless-ngx service
   services.paperless = {
     enable = true;
+    
+    # User and group configuration  
+    user = "bean";
     
     # Web interface configuration
     port = cfg.ports.paperless;
@@ -16,6 +26,7 @@ in
     # Data storage configuration - use the storage pool
     dataDir = "/storage/pool/documents/paperless-data";
     mediaDir = "/storage/pool/documents/paperless-media";
+    consumptionDir = "/storage/pool/documents/consume";
     
     # OCR configuration for English and Japanese
     settings = {
@@ -53,19 +64,16 @@ in
       
       # Time zone
       PAPERLESS_TIME_ZONE = "Asia/Tokyo";
-      
-      # Redis configuration (if needed)
-      PAPERLESS_REDIS = "redis://localhost:6379";
     };
   };
 
   # Create necessary directories with proper permissions
   systemd.tmpfiles.rules = [
-    "d /storage/pool/documents 0755 paperless paperless -"
-    "d /storage/pool/documents/paperless-data 0755 paperless paperless -"
-    "d /storage/pool/documents/paperless-media 0755 paperless paperless -"
-    "d /storage/pool/documents/consume 0755 paperless paperless -"
-    "d /storage/pool/documents/export 0755 paperless paperless -"
+    "d /storage/pool/documents 0755 bean users -"
+    "d /storage/pool/documents/paperless-data 0755 bean users -"
+    "d /storage/pool/documents/paperless-media 0755 bean users -"
+    "d /storage/pool/documents/consume 0755 bean users -"
+    "d /storage/pool/documents/export 0755 bean users -"
   ];
 
   # Install additional packages for document processing

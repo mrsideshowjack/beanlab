@@ -22,7 +22,7 @@ in
     consumptionDir = "/storage/pool/documents/consume";
     
     # Simplified configuration using extraConfig (like the example)
-    extraConfig = {
+    settings = {
       PAPERLESS_OCR_LANGUAGE = "eng+jpn";  # English and Japanese OCR
       PAPERLESS_TIME_ZONE = "Asia/Tokyo";
       PAPERLESS_URL = "http://" + cfg.network.serverDomain + ":" + toString cfg.ports.paperless;

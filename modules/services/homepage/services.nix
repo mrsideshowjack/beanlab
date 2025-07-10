@@ -34,14 +34,6 @@ in
         };
       }
       {
-        "Bazarr" = {
-          icon = "bazarr";
-          href = "http://${domain}:${toString cfg.ports.bazarr}";
-          description = "Subtitle Manager";
-          siteMonitor = "http://${domain}:${toString cfg.ports.bazarr}";
-        };
-      }
-      {
         "Prowlarr" = {
           icon = "prowlarr";
           href = "http://${domain}:${toString cfg.ports.prowlarr}";

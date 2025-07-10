@@ -41,6 +41,14 @@ in
           siteMonitor = "http://${domain}:${toString cfg.ports.bazarr}";
         };
       }
+      {
+        "Prowlarr" = {
+          icon = "prowlarr";
+          href = "http://${domain}:${toString cfg.ports.prowlarr}";
+          description = "Movie Manager";
+          siteMonitor = "http://${domain}:${toString cfg.ports.prowlarr}";
+        };
+      }
     ];
   }
   {

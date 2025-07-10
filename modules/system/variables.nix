@@ -88,6 +88,12 @@
         default = 6767;
         description = "Bazarr subtitle management port";
       };
+
+      prowlarr = lib.mkOption {
+        type = lib.types.int;
+        default = 9696;
+        description = "Prowlarr movie management port";
+      };
       
       paperless = lib.mkOption {
         type = lib.types.int;

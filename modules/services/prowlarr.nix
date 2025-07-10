@@ -6,7 +6,5 @@
   services.prowlarr = {
     enable = true;
     openFirewall = true;
-    user = "bean";
-    group = "users";
   };
 } 

@@ -8,6 +8,5 @@
     openFirewall = true;
     user = "bean";
     group = "users";
-    dataDir = "/var/lib/prowlarr";
   };
 } 

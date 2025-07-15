@@ -29,8 +29,8 @@
         
         # Use the existing certificate files
         ca /etc/nixos/ca.pem
-        crl-verify /etc/nixos/crl.pem
-
+        
+        # Disable features that might cause issues
         disable-occ
         
         # Basic routing for testing

@@ -20,7 +20,7 @@
         # Include Comin module
         comin.nixosModules.comin
         # Include PIA module
-        pia.nixosModules."x86_64-linux".default
+        pia.nixosModules.default
         
         # Hardware configuration
         ./hardware-configuration.nix
@@ -39,7 +39,7 @@
         ./modules/services/homepage
         
         # PIA VPN service module
-        ./modules/services/pia-vpn.nix
+        # ./modules/services/pia-vpn.nix
         
         # Arr stack modules
         # ./modules/services/deluge.nix
@@ -90,7 +90,14 @@
             tree      # Directory tree viewer
             nano      # Simple text editor
             openssh   # SSH client/server
+            pia.packages."x86_64-linux".default  # PIA CLI tool
           ];
+
+          # PIA VPN Configuration
+          services.pia = {
+            enable = true;
+            authUserPassFile = "/etc/nixos/pia-credentials.txt";
+          };
 
           # Enable SSH
           services.openssh = {

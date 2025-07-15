@@ -8,7 +8,7 @@ let
 in
 [
   {
-    "Arr stack" = [
+    "Arr" = [
       {
         "Deluge" = {
           icon = "deluge";

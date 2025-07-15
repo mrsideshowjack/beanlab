@@ -26,13 +26,13 @@
         ./modules/system/users.nix  
         ./modules/system/storage.nix
         ./modules/system/dns.nix
+        ./modules/services/comin.nix
         
         # Service modules
         ./modules/services/jellyfin.nix
         ./modules/services/immich.nix
         ./modules/services/paperless.nix
         ./modules/services/homepage
-        ./modules/services/comin.nix
         
         # PIA VPN service module
         ./modules/services/pia-vpn.nix

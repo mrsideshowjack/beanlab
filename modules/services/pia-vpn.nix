@@ -81,4 +81,5 @@ in
   systemd.services.delugeweb.after = [ "openvpn-pia.service" ];
   systemd.services.sonarr.after = [ "openvpn-pia.service" ];
   systemd.services.radarr.after = [ "openvpn-pia.service" ];
+  systemd.services.prowlarr.after = [ "openvpn-pia.service" ];
 } 

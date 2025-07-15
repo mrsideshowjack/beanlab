@@ -7,12 +7,31 @@
     pia = {
       autoStart = true;
       
-      # Use the existing processed config file
+      # Basic configuration matching the processed OVPN
       config = ''
-        config /etc/nixos/pia-processed.ovpn
-        
-        # Override the auth file path to use our existing credentials
+        client
+        dev tun
+        proto udp
+        remote japan.privacy.network 1198
+        resolv-retry infinite
+        nobind
+        persist-key
+        persist-tun
+        cipher aes-128-cbc
+        auth sha1
+        tls-client
+        remote-cert-tls server
+
         auth-user-pass /etc/nixos/pia-credentials.txt
+        compress
+        verb 1
+        reneg-sec 0
+        
+        # Use the existing certificate files
+        ca /etc/nixos/ca.pem
+        crl-verify /etc/nixos/crl.pem
+
+        disable-occ
         
         # Basic routing for testing
         redirect-gateway def1
@@ -23,7 +42,7 @@
       '';
     };
   };
-} 
+}
 
 
 #  # Ensure services wait for VPN (only torrent-related services need VPN)

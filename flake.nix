@@ -38,10 +38,10 @@
         ./modules/services/pia-vpn.nix
         
         # Arr stack modules
-        ./modules/services/deluge.nix
-        ./modules/services/sonarr.nix
-        ./modules/services/radarr.nix
-        ./modules/services/prowlarr.nix
+        # ./modules/services/deluge.nix
+        # ./modules/services/sonarr.nix
+        # ./modules/services/radarr.nix
+        # ./modules/services/prowlarr.nix
         # Main system configuration
         {
           # Basic system configuration

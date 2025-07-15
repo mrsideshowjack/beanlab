@@ -44,7 +44,7 @@ in
     ];
   }
   {
-    "Media Services" = [
+    "Media" = [
       {
         "Jellyfin" = {
           icon = "jellyfin";

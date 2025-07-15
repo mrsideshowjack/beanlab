@@ -37,7 +37,7 @@ in
         "Prowlarr" = {
           icon = "prowlarr";
           href = "http://${domain}:${toString cfg.ports.prowlarr}";
-          description = "Movie Manager";
+          description = "Indexer Manager";
           siteMonitor = "http://${domain}:${toString cfg.ports.prowlarr}";
         };
       }

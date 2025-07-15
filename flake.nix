@@ -20,7 +20,7 @@
         # Include Comin module
         comin.nixosModules.comin
         # Include PIA module
-        pia.nixosModules.default
+        pia.nixosModules."x86_64-linux".default
         
         # Hardware configuration
         ./hardware-configuration.nix
@@ -46,6 +46,7 @@
         # ./modules/services/sonarr.nix
         # ./modules/services/radarr.nix
         # ./modules/services/prowlarr.nix
+        
         # Main system configuration
         {
           # Basic system configuration
@@ -90,7 +91,6 @@
             tree      # Directory tree viewer
             nano      # Simple text editor
             openssh   # SSH client/server
-            pia.packages."x86_64-linux".default  # PIA CLI tool
           ];
 
           # PIA VPN Configuration

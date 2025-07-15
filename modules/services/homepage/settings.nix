@@ -17,7 +17,7 @@
       };
     }
     {
-      "Media Services" = {
+      "Media" = {
         style = "column";
       };
     }

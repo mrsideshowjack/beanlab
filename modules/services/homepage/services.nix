@@ -21,7 +21,7 @@ in
         "Sonarr" = {
           icon = "sonarr";
           href = "http://${domain}:${toString cfg.ports.sonarr}";
-          description = "TV Show Manager";
+          description = "Series Manager";
           siteMonitor = "http://${domain}:${toString cfg.ports.sonarr}";
         };
       }

@@ -22,7 +22,7 @@
         tls-client
         remote-cert-tls server
 
-        auth-user-pass /etc/nixos/pia-credentials.txt
+        auth-user-pass /etc/nixos/auth.txt
         compress
         verb 1
         reneg-sec 0

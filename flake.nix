@@ -7,16 +7,20 @@
       url = "github:nlewo/comin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    pia = {
+      url = "github:Fuwn/pia.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, comin }: {
+  outputs = { self, nixpkgs, comin, pia }: {
     nixosConfigurations.beanlab = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         # Include Comin module
         comin.nixosModules.comin
-        
+        # Include PIA module
+        pia.nixosModules."x86_64-linux".default
         
         # Hardware configuration
         ./hardware-configuration.nix

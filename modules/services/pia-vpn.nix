@@ -58,6 +58,8 @@
         if [ -n "$VPN_IP" ]; then
           # Save the gateway IP for the VPN server route
           echo "$VPN_IP" > /tmp/vpn_gateway
+          # Save the interface name
+          ${pkgs.iproute2}/bin/ip route | grep "^default.*$VPN_IP" | grep -oP 'dev \K[^ ]+' > /tmp/vpn_interface
         fi
         
         # Remove default route but keep VPN server route
@@ -84,7 +86,22 @@
           ${pkgs.iproute2}/bin/ip route add japan.privacy.network via $VPN_IP || true
         fi
         
+        # Create restore-network script
+        cat > /etc/openvpn/restore-network.sh << 'EOF'
+        #!/bin/bash
+        if [ -f "/tmp/vpn_gateway" ] && [ -f "/tmp/vpn_interface" ]; then
+          GATEWAY=$(cat /tmp/vpn_gateway)
+          IFACE=$(cat /tmp/vpn_interface)
+          ip route add default via $GATEWAY dev $IFACE
+          echo "Network restored via $GATEWAY on $IFACE"
+        else
+          echo "No saved network config found. Try: dhclient -v eth0 (or your interface name)"
+        fi
+        EOF
+        chmod +x /etc/openvpn/restore-network.sh
+        
         echo "OpenVPN connection down - traffic blocked by kill switch"
+        echo "To restore network access, run: sudo /etc/openvpn/restore-network.sh"
       '';
       mode = "0755";
     };

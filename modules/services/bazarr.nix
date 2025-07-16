@@ -9,5 +9,10 @@
     user = "bean";
     group = "users";
     dataDir = "/var/lib/bazarr";
+    listenPort = config.beanlab.ports.bazarr;
+    extraArgs = [
+      "-c" "${config.services.bazarr.dataDir}"
+      "-p" "${toString config.beanlab.ports.bazarr}"
+    ];
   };
 } 

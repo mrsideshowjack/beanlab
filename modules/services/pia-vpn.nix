@@ -53,14 +53,37 @@
     "openvpn/up.sh" = {
       text = ''
         #!${pkgs.bash}/bin/bash
-        ${pkgs.iproute2}/bin/ip route del default
-        echo "Kill switch enabled - default route removed"
+        # Get the VPN server IP
+        VPN_IP=$(${pkgs.iproute2}/bin/ip route get japan.privacy.network | grep -oP 'via \K[^ ]+' || echo "")
+        if [ -n "$VPN_IP" ]; then
+          # Save the gateway IP for the VPN server route
+          echo "$VPN_IP" > /tmp/vpn_gateway
+        fi
+        
+        # Remove default route but keep VPN server route
+        ${pkgs.iproute2}/bin/ip route del default || true
+        if [ -n "$VPN_IP" ]; then
+          ${pkgs.iproute2}/bin/ip route add japan.privacy.network via $VPN_IP || true
+        fi
+        
+        # Add VPN route
+        ${pkgs.iproute2}/bin/ip route add default dev tun0 || true
+        echo "Kill switch enabled - routes updated for VPN"
       '';
       mode = "0755";
     };
     "openvpn/down.sh" = {
       text = ''
         #!${pkgs.bash}/bin/bash
+        # Remove the default route
+        ${pkgs.iproute2}/bin/ip route del default || true
+        
+        # Restore VPN server route if gateway is saved
+        if [ -f "/tmp/vpn_gateway" ]; then
+          VPN_IP=$(cat /tmp/vpn_gateway)
+          ${pkgs.iproute2}/bin/ip route add japan.privacy.network via $VPN_IP || true
+        fi
+        
         echo "OpenVPN connection down - traffic blocked by kill switch"
       '';
       mode = "0755";

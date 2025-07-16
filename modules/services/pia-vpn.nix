@@ -45,10 +45,9 @@
 }
 
 
-#  # Ensure services wait for VPN (only torrent-related services need VPN)
-#   # Note: Only route torrent traffic through VPN, keep media servers local
-#   systemd.services.deluged.after = [ "openvpn-pia.service" ];
-#   systemd.services.delugeweb.after = [ "openvpn-pia.service" ];
-#   systemd.services.sonarr.after = [ "openvpn-pia.service" ];
-#   systemd.services.radarr.after = [ "openvpn-pia.service" ];
-#   systemd.services.prowlarr.after = [ "openvpn-pia.service" ];
+# Ensure services wait for VPN (only torrent-related services need VPN)
+  systemd.services.deluged.after = [ "openvpn-pia.service" ];
+  systemd.services.delugeweb.after = [ "openvpn-pia.service" ];
+  systemd.services.sonarr.after = [ "openvpn-pia.service" ];
+  systemd.services.radarr.after = [ "openvpn-pia.service" ];
+  systemd.services.prowlarr.after = [ "openvpn-pia.service" ];

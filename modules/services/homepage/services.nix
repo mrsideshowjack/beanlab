@@ -41,6 +41,14 @@ in
           siteMonitor = "http://${domain}:${toString cfg.ports.prowlarr}";
         };
       }
+      {
+        "Bazarr" = {
+          icon = "bazarr";
+          href = "http://${domain}:${toString cfg.ports.bazarr}";
+          description = "Subtitle Manager";
+          siteMonitor = "http://${domain}:${toString cfg.ports.bazarr}";
+        };
+      }
     ];
   }
   {

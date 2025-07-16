@@ -1,8 +1,8 @@
-# Prowlarr movie management configuration
+# Prowlarr indexer management configuration
 { config, ... }:
 
 {
-  # Enable Prowlarr movie management
+  # Enable Prowlarr indexer management
   services.prowlarr = {
     enable = true;
     openFirewall = true;

@@ -6,5 +6,8 @@
   services.bazarr = {
     enable = true;
     openFirewall = true;
+    user = "bean";
+    group = "users";
+    dataDir = "/var/lib/bazarr";
   };
 } 

@@ -7,4 +7,5 @@
     enable = true;
     user = "bean";
     group = "users";
+  };
 } 

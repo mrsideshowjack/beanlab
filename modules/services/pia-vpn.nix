@@ -46,8 +46,12 @@
 
 
 # Ensure services wait for VPN (only torrent-related services need VPN)
-  systemd.services.deluged.after = [ "openvpn-pia.service" ];
-  systemd.services.delugeweb.after = [ "openvpn-pia.service" ];
-  systemd.services.sonarr.after = [ "openvpn-pia.service" ];
-  systemd.services.radarr.after = [ "openvpn-pia.service" ];
-  systemd.services.prowlarr.after = [ "openvpn-pia.service" ];
+  systemd.services = {
+    deluged.after = [ "openvpn-pia.service" ];
+    delugeweb.after = [ "openvpn-pia.service" ];
+    sonarr.after = [ "openvpn-pia.service" ];
+    radarr.after = [ "openvpn-pia.service" ];
+    prowlarr.after = [ "openvpn-pia.service" ];
+  };
+}
+  

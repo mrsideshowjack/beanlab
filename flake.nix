@@ -40,6 +40,7 @@
         ./modules/services/sonarr.nix
         ./modules/services/radarr.nix
         ./modules/services/prowlarr.nix
+        ./modules/services/bazarr.nix
         
         # Main system configuration
         {

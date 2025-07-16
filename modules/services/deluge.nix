@@ -32,6 +32,12 @@
       max_active_seeding = 5;
       max_active_limit = 10;
       enabled_plugins = [ "Label" ];
+      
+      # Network interface binding
+      interface = "tun0";  # OpenVPN interface
+      random_outgoing_ports = false;
+      outgoing_interface = "tun0";
+      listen_interface = "tun0";
     };
     
     # Auth file for remote access

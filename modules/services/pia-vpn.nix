@@ -39,13 +39,35 @@
         # DNS settings
         dhcp-option DNS ${config.beanlab.dns.piaDNS}
         dhcp-option DNS ${config.beanlab.dns.fallbackDNS}
+
+        # Kill switch configuration
+        script-security 2
+        up /etc/openvpn/up.sh
+        down /etc/openvpn/down.sh
       '';
     };
   };
-}
 
+  # Create up/down scripts for kill switch
+  environment.etc = {
+    "openvpn/up.sh" = {
+      text = ''
+        #!${pkgs.bash}/bin/bash
+        ${pkgs.iproute2}/bin/ip route del default
+        echo "Kill switch enabled - default route removed"
+      '';
+      mode = "0755";
+    };
+    "openvpn/down.sh" = {
+      text = ''
+        #!${pkgs.bash}/bin/bash
+        echo "OpenVPN connection down - traffic blocked by kill switch"
+      '';
+      mode = "0755";
+    };
+  };
 
-# Ensure services wait for VPN (only torrent-related services need VPN)
+  # Ensure services wait for VPN (only torrent-related services need VPN)
   systemd.services = {
     deluged.after = [ "openvpn-pia.service" ];
     delugeweb.after = [ "openvpn-pia.service" ];

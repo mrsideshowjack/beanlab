@@ -34,6 +34,9 @@
         
         # PIA VPN service module
         ./modules/services/pia-vpn.nix
+
+        # Cloudflare service module
+        ./modules/services/cloudflared.nix
         
         # Arr stack modules
         ./modules/services/deluge.nix

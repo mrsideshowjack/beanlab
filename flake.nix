@@ -89,6 +89,7 @@
             tree      # Directory tree viewer
             nano      # Simple text editor
             openssh   # SSH client/server
+            cloudflared # Cloudflare Tunnel client
           ];
 
           # Enable SSH

@@ -7,9 +7,6 @@
   statusStyle = "dot";
   hideVersion = true;
 
-  theme = "dark";
-  color = "slate";
-
   layout = [
     {
       "Arr" = {

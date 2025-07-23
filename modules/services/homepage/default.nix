@@ -29,7 +29,11 @@ in
     widgets = import ./widgets.nix { inherit config; };
     
     # Custom CSS for Homepage
-    customCSS = builtins.readFile ./custom.css;
+    customCSS = ''
+      :root {
+        --bg-color: rgba(0, 0, 0, 0.5);
+      }
+    '';
     
     # Custom JS for Homepage (if needed later)
     customJS = builtins.readFile ./custom.js;

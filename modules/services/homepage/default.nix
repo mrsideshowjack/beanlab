@@ -35,9 +35,6 @@ in
       }
     '';
     
-    # Custom JS for Homepage (if needed later)
-    customJS = builtins.readFile ./custom.js;
-    
     # Import bookmarks
     bookmarks = [
       {

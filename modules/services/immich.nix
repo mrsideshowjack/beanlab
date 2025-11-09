@@ -1,5 +1,5 @@
 # Immich photo management configuration
-{ config, ... }:
+{ config, nixpkgs-unstable, ... }:
 
 {
   # Enable Immich photo management
@@ -8,5 +8,7 @@
     port = config.beanlab.ports.immich;
     host = "0.0.0.0";  # Listen on all interfaces
     mediaLocation = "/storage/pool/pictures";
+    # Use unstable package for better compatibility with mobile apps
+    package = nixpkgs-unstable.immich;
   };
 } 

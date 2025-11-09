@@ -3,15 +3,22 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     comin = {
       url = "github:nlewo/comin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, comin }: {
+  outputs = { self, nixpkgs, nixpkgs-unstable, comin }: {
     nixosConfigurations.beanlab = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = {
+        nixpkgs-unstable = import nixpkgs-unstable {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+      };
       modules = [
         # Include Comin module
         comin.nixosModules.comin

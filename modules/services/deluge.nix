@@ -4,7 +4,7 @@
 {
   # Enable Deluge BitTorrent client
   services.deluge = {
-    enable = true;
+    enable = false;
     declarative = true;
     openFirewall = true;
     user = "bean";

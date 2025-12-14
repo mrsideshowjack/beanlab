@@ -60,10 +60,4 @@
     "d /storage/pool/torrents/completed 0755 bean users - -"
     "d /storage/pool/torrents/torrent-files 0755 bean users - -"
   ];
-
-  # Wait for VPN to be available before starting Deluge
-  systemd.services.deluged.after = [ "openvpn-pia.service" ];
-  systemd.services.deluged.wants = [ "openvpn-pia.service" ];
-  systemd.services.delugeweb.after = [ "openvpn-pia.service" ];
-  systemd.services.delugeweb.wants = [ "openvpn-pia.service" ];
 } 

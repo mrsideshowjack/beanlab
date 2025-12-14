@@ -110,6 +110,14 @@
           # Firewall configuration
           networking.firewall.enable = false;
 
+          # Add VPN dependencies for Deluge (must be after deluge.nix module loads)
+          # This ensures the Deluge service is fully defined before we add dependencies
+          systemd.services.deluged.after = [ "openvpn-pia.service" ];
+          systemd.services.deluged.wants = [ "openvpn-pia.service" ];
+          systemd.services.deluged.requires = [ "openvpn-pia.service" ];
+          systemd.services.delugeweb.after = [ "openvpn-pia.service" ];
+          systemd.services.delugeweb.wants = [ "openvpn-pia.service" ];
+
           # NixOS version
           system.stateVersion = "25.05";
         }

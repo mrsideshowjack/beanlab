@@ -7,7 +7,7 @@ in
 {
   # Enable paperless-ngx service (Redis will be auto-configured)
   services.paperless = {
-    enable = true;
+    enable = false;
     
     # User and group configuration  
     user = "bean";

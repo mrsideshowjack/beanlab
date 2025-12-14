@@ -60,4 +60,24 @@
     "d /storage/pool/torrents/completed 0755 bean users - -"
     "d /storage/pool/torrents/torrent-files 0755 bean users - -"
   ];
+
+  # Wait for VPN to be available before starting Deluge
+  # This ensures Deluge only starts after the VPN is connected
+  # Using mkMerge to properly merge with the service definition from the Deluge module
+  systemd.services = lib.mkMerge [
+    (lib.mkIf config.services.deluge.enable {
+      deluged = {
+        after = [ "openvpn-pia.service" ];
+        wants = [ "openvpn-pia.service" ];
+        # Ensure service doesn't start if VPN fails
+        requires = [ "openvpn-pia.service" ];
+      };
+    })
+    (lib.mkIf config.services.deluge.web.enable {
+      delugeweb = {
+        after = [ "openvpn-pia.service" ];
+        wants = [ "openvpn-pia.service" ];
+      };
+    })
+  ];
 } 

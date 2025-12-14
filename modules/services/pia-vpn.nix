@@ -108,12 +108,14 @@
   };
 
   # Ensure services wait for VPN (only torrent-related services need VPN)
+  # Note: Deluge dependencies are configured in deluge.nix to avoid evaluation order issues
   systemd.services = {
-    deluged.after = [ "openvpn-pia.service" ];
-    delugeweb.after = [ "openvpn-pia.service" ];
     sonarr.after = [ "openvpn-pia.service" ];
+    sonarr.wants = [ "openvpn-pia.service" ];
     radarr.after = [ "openvpn-pia.service" ];
+    radarr.wants = [ "openvpn-pia.service" ];
     prowlarr.after = [ "openvpn-pia.service" ];
+    prowlarr.wants = [ "openvpn-pia.service" ];
   };
 }
   

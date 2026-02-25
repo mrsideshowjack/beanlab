@@ -100,6 +100,12 @@
         default = 8010;
         description = "Paperless-ngx document management port";
       };
+
+      readarr = lib.mkOption {
+        type = lib.types.int;
+        default = 8787;
+        description = "Readarr book management port";
+      };
     };
   };
 } 

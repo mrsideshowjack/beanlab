@@ -49,6 +49,14 @@ in
           siteMonitor = "http://${domain}:${toString cfg.ports.bazarr}";
         };
       }
+      {
+        "Readarr" = {
+          icon = "readarr";
+          href = "http://${domain}:${toString cfg.ports.readarr}";
+          description = "Book Manager";
+          siteMonitor = "http://${domain}:${toString cfg.ports.readarr}";
+        };
+      }
     ];
   }
   {

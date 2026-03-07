@@ -28,8 +28,9 @@
   virtualisation.oci-containers.containers."rreading-glasses" = {
     image = "docker.io/blampe/rreading-glasses:hardcover";
 
-    entrypoint = [ "/main" "serve" ];
-    cmd = [ "--verbose" ];
+    # Run the main server binary with verbose logging
+    entrypoint = "/main";
+    cmd = [ "serve" "--verbose" ];
 
     environment = {
       POSTGRES_HOST = "rreading-glasses-db";

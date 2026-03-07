@@ -50,10 +50,10 @@ in
         };
       }
       {
-        "Readarr" = {
+        "Bookshelf" = {
           icon = "readarr";
           href = "http://${domain}:${toString cfg.ports.readarr}";
-          description = "Book Manager";
+          description = "Book Manager (Bookshelf)";
           siteMonitor = "http://${domain}:${toString cfg.ports.readarr}";
         };
       }

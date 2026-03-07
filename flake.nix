@@ -6,7 +6,6 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     comin = {
       url = "github:nlewo/comin";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -110,6 +109,9 @@
 
           # Firewall configuration
           networking.firewall.enable = false;
+
+          # Use comin package from its own flake to ensure a compatible Go toolchain
+          services.comin.package = comin.packages."x86_64-linux".comin;
 
           # Add VPN dependencies for Deluge (must be after deluge.nix module loads)
           # This ensures the Deluge service is fully defined before we add dependencies

@@ -50,7 +50,11 @@
         ./modules/services/radarr.nix
         ./modules/services/prowlarr.nix
         ./modules/services/bazarr.nix
-        ./modules/services/readarr.nix
+
+        # Container services
+        ./modules/services/containers.nix
+        ./modules/services/rreading-glasses.nix
+        ./modules/services/bookshelf.nix
         
         # Main system configuration
         {

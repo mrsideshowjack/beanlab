@@ -35,7 +35,7 @@ This repository contains the complete NixOS configuration for "beanlab" - a head
 ## Usage
 
 ### GitOps Deployment
-With Comin GitOps, updates are automatic Just push changes to deploy:
+With Comin GitOps, updates are automatic just push changes to deploy:
 
 ```bash
 # Make changes to configuration

@@ -14,8 +14,8 @@
     environment = {
       POSTGRES_USER = "rreading-glasses";
       POSTGRES_DB = "rreading-glasses";
-      PUID = "0";
-      PGID = "0";
+      PUID = "1000";
+      PGID = "100";
     };
 
     # Load POSTGRES_PASSWORD (and any other secrets) from:
@@ -39,8 +39,8 @@
       POSTGRES_HOST = "rreading-glasses-db";
       POSTGRES_DATABASE = "rreading-glasses";
       POSTGRES_USER = "rreading-glasses";
-      PUID = "0";
-      PGID = "0";
+      PUID = "1000";
+      PGID = "100";
     };
 
     # Load HARDCOVER_AUTH and POSTGRES_PASSWORD from the same env file

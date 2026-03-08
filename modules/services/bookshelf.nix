@@ -20,6 +20,8 @@ in
     # Basic environment; container uses its own internal user
     environment = {
       TZ = "Asia/Tokyo";
+      PUID = "1000";
+      PGID = "100";
     };
 
     volumes = [

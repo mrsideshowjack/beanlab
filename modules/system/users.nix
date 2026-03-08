@@ -36,7 +36,7 @@
       gl = "git pull";
       rebuild = "sudo nixos-rebuild switch --flake .#beanlab";
       reboot-sys = "sudo reboot";
-      comin-status = "sudo journalctl -u comin.service -f -o cat"
+      comin-status = "sudo journalctl -u comin.service -f -o cat";
     };
 
     histSize = 10000;

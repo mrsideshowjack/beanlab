@@ -5,7 +5,6 @@
     enable = true;
     dockerCompat = true;
     user = "bean";
-    group = "users";
 
     # Enable DNS-based container name resolution on the default network
     # so containers like rreading-glasses can reach rreading-glasses-db

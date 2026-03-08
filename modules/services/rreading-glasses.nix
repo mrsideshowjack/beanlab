@@ -9,6 +9,7 @@
 
   virtualisation.oci-containers.containers."rreading-glasses-db" = {
     image = "docker.io/library/postgres:17";
+    
 
     environment = {
       POSTGRES_USER = "rreading-glasses";
@@ -22,6 +23,7 @@
 
     volumes = [
       "/var/lib/rreading-glasses/db:/var/lib/postgresql/data"
+      "/storage/pool/Books"
     ];
   };
 

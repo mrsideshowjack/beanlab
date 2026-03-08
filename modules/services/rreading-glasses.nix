@@ -23,7 +23,6 @@
 
     volumes = [
       "/var/lib/rreading-glasses/db:/var/lib/postgresql/data"
-      "/storage/pool/Books"
     ];
   };
 
@@ -46,6 +45,10 @@
 
     ports = [
       "8788:8788"
+    ];
+
+    volumes = [
+      "/storage/pool/Books:/storage/pool/Books"
     ];
 
     dependsOn = [ "rreading-glasses-db" ];

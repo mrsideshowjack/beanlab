@@ -5,6 +5,7 @@
   systemd.tmpfiles.rules = [
     "d /var/lib/rreading-glasses 0750 root root - -"
     "d /var/lib/rreading-glasses/db 0750 root root - -"
+    "d /storage/pool/Books 0775 1000 1000 - -"
   ];
 
   virtualisation.oci-containers.containers."rreading-glasses-db" = {

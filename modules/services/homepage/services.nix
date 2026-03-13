@@ -82,6 +82,14 @@ in
           siteMonitor = "http://${domain}:${toString cfg.ports.immich}";
         };
       }
+      {
+        "Home Assistant" = {
+          icon = "home-assistant";
+          href = "http://${domain}:${toString cfg.ports.homeAssistant}";
+          description = "Home Automation";
+          siteMonitor = "http://${domain}:${toString cfg.ports.homeAssistant}";
+        };
+      }
        {
          "Paperless-ngx" = {
            icon = "paperless-ngx";

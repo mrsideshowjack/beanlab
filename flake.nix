@@ -36,6 +36,7 @@
         ./modules/services/jellyfin.nix
         ./modules/services/immich.nix
         ./modules/services/paperless.nix
+        ./modules/services/home-assistant.nix
         ./modules/services/homepage
         
         # PIA VPN service module

@@ -101,6 +101,12 @@
         description = "Paperless-ngx document management port";
       };
 
+      homeAssistant = lib.mkOption {
+        type = lib.types.int;
+        default = 8123;
+        description = "Home Assistant port";
+      };
+
       readarr = lib.mkOption {
         type = lib.types.int;
         default = 8787;
